@@ -1,5 +1,6 @@
 {
   "name": "food-recommender-server",
+  "type": "module",
   "version": "1.0.0",
   "description": "This is the backend server for the Food Recommender Application.",
   "main": "index.js",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/rajatbhagat/food-recommender-server/issues"
   },
-  "homepage": "https://github.com/rajatbhagat/food-recommender-server#readme"
+  "homepage": "https://github.com/rajatbhagat/food-recommender-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10"
+  }
 }
