@@ -1,23 +1,26 @@
-import userModel from "../models/user_model";
-import userDetailsModel from "../models/user_details_model";
-import { login } from "../service/user_service";
+import userModel from "../models/user_model.js";
 
-export const createUser = (user) => {
-    userModel.create(user);
+export const getAllUsersDao = async () => {
+    return userModel.find();
 }
-export const login = () => {}
-export const deleteUser = (uid) => {
+
+export const getUserByIdDao = (uid) => {
+    return userModel.findOne(uid);
+}
+
+export const getUserByEmailDao = (email) => {
+    return userModel.find({email: email});
+}
+
+export const getUserByNameDao = (name) => {
+    //TODO: Update this
+    return userModel.find(none);
+}
+
+export const createUserDao = (user) => {
+    return userModel.create(user);
+}
+export const deleteUserDao = (uid) => {
     userModel.deleteOne(uid)
 }
-export const updateUser = (user) => {}
-
-export const createUserDetails = (user, userDetails) => {
-    userDetailsModel.create(userDetails);
-}
-export const getUserDetails = (uid) => {
-    userDetailsModel.find(uid);
-}
-export const updateUserDetails = (user) => {}
-export const deleteUserDetails = (uid) => {
-    userDetailsModel.deleteOne(uid);
-}
+export const updateUserDao = (user) => {}
