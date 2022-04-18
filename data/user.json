@@ -1,0 +1,29 @@
+[
+    {
+        "email": "rajat@mail.com",
+        "password" : "rajat",
+        "details": {
+            "name": "Rajat Bhagat",
+            "contact_number`": "123456789",
+            "gender": "Male"
+        }
+    },
+    {
+        "email": "anuj@mail.com",
+        "password" : "anuj",
+        "details": {
+            "name": "Anuj Sharma",
+            "contact_number": "123987654",
+            "gender": "Male"
+        }
+    },
+    {
+        "email": "tanish@mail.com",
+        "password" : "tanish",
+        "details": {
+            "name": "Tanish Sehgal",
+            "contact_number": "123654987",
+            "gender": "Male"
+        }
+    }
+]

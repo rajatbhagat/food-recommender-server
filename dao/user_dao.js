@@ -23,4 +23,6 @@ export const createUserDao = (user) => {
 export const deleteUserDao = (uid) => {
     userModel.deleteOne(uid)
 }
-export const updateUserDao = (user) => {}
+export const updateUserDao = (user, uid) => {
+    userModel.updateOne({_id: uid}, {$set: user})
+}
