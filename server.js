@@ -4,6 +4,8 @@ import session from 'express-session';
 import MongoDBSession from 'connect-mongodb-session';
 import mongoose from 'mongoose';
 
+import userController from './controller/user-controller.js';
+
 const mongoDBSession = MongoDBSession(session);
 
 const mongoURI = 'mongodb+srv://food:food@cluster0.vprdu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
@@ -28,6 +30,8 @@ app.use(session({
     saveUninitialized: false,
     store: store,
 }))
+
+userController(app);
 
 app.get('/', (req, res) => {
     req.session.isAuth = true;
