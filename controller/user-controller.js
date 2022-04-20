@@ -1,29 +1,78 @@
-import mongoose from "mongoose";
-import {
-    getAllUsersDao,
-    getUserByEmailDao,
-    updateUserDao
-} from "../dao/user_dao.js";
-
-mongoose.connect("mongodb://localhost:27017/foodrecommender")
-
-export const getAllUsers = async (req, res) => {
-    const allUsers = await getAllUsersDao();
-    res.send(allUsers);
+import userModel from '../models/user_model.js';
+import { updateDaoUser } from '../dao/user_dao.js';
+import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
+const SECRET_KEY = 'FOOD';
+const userController = (app) => {
+    app.get('/api/users', findAllUsers);
+    app.get('/api/users/:uid', findUserById);
+    app.post('/api/users/createUser', createUser);
+    app.post('/api/users/loginUser', loginUser);
+    app.put('/api/users/:uid', updateUser);
 }
 
-export const getUserByEmail = async (req, res) => {
-    const user = await getUserByEmailDao(req.params.email)
-    res.send(user);
+const updateUser = async (req, res) => {
+    console.log("Starting update user")
+    const userId = req.params['uid'];
+    const updatedUser = req.body;
+    console.log(updatedUser)
+    console.log(userId)
+    const out = updateDaoUser(userId,updatedUser);
+    console.log(out);
+    res.send(200);
+  }
+   
+
+// const deleteUser = (req, res) => {
+//     const userId = req.params['uid'];
+//     users = users.filter(usr =>
+//       usr._id !== userId);
+//     res.send(200);
+//    }
+
+const createUser = async (req, res) => {
+    const newUser = req.body;
+    console.log("Server: ",req.body);
+    const responseUser = userModel.create(newUser);
+
+    res.send(responseUser);
+   }
+
+const loginUser = async (req, res) => {
+  const loggedInUser = req.body;
+  // const hashedPwd = await CryptoJS.AES.encrypt(loggedInUser.password, SECRET_KEY);
+  // console.log("Pwd", hashedPwd)
+  const dbDetails = await userModel.find({email: loggedInUser.email});
+  // let bytes  = CryptoJS.AES.decrypt(dbDetails.password, SECRET_KEY);
+  // let decryptedPwd = bytes.toString(CryptoJS.enc.Utf8);
+  console.log(dbDetails[0].password)
+  console.log(loggedInUser.password)
+  if (dbDetails && dbDetails[0].password === loggedInUser.password) {
+    return res.send(dbDetails[0]);
+  } else {
+    return res.send("User Not Found");
+  }
+}
+   
+
+const findUserById = (req, res) => {
+    const userId = req.params.uid;
+    const user = users.find(u => u._id === userId);
+    res.json(user);
+   }   
+
+const findAllUsers = (req,res) => {
+    const type = req.query.type;
+ if(type) {
+   res.json(findUsersByType(type));
+   return;
+ }
+    res.json(users)
 }
 
-export const updateUser = async (req, res) => {
-    const newUser = await updateUserDao(req.data, req.params.id);
-    res.send(newUser);
+const findUsersByType = (type) => {
+    
+    return users.filter(user => type===user.type)
 }
 
-export default (app) => {
-    app.get('/api/users', getAllUsers);
-    app.get('/api/users/:email', getUserByEmail)
-    app.post('/api/users/', updateUser);
-}
+export default userController;

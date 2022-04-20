@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
-   _id: Number,
-   email: String,
-   password: String,
-   details: {
-      name: String,
-      contact_number: Number,
-      gender: String
+   name: {
+      type: String,
+      required: true,
    },
+   email: {
+      type: String,
+      required: true,
+      unique: true
+   },
+   password: {
+      type: String,
+      required: true
+   }
 }, {collection: 'users'});
 
 export default userSchema;
