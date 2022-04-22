@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const userSchema = mongoose.Schema({
+const nutritionistSchema = mongoose.Schema({
    name: {
       type: String,
       required: true,
@@ -14,13 +14,10 @@ const userSchema = mongoose.Schema({
       type: String,
       required: true
    },
-   recipe: {
-      type: Array,
-   },
    role: {
       type: String,
-      default: 'user'
+      default: 'nutritionist'
    }
-}, {collection: 'users'});
+}, {collection: 'nutritionist'});
 
-export default userSchema;
+export default nutritionistSchema;
