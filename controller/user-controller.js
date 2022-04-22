@@ -2,13 +2,28 @@ import userModel from '../models/user_model.js';
 import { updateDaoUser } from '../dao/user_dao.js';
 import bcrypt from 'bcryptjs';
 import CryptoJS from 'crypto-js';
+import nutritionistModel from '../models/nutritionist_model.js';
 const SECRET_KEY = 'FOOD';
 const userController = (app) => {
     app.get('/api/users', findAllUsers);
-    app.get('/api/users/:uid', findUserById);
+    // app.get('/api/users/:uid', findUserById);
     app.post('/api/users/createUser', createUser);
     app.post('/api/users/loginUser', loginUser);
     app.put('/api/users/:uid', updateUser);
+    app.post('/api/users/addRecipe',addRecipe);
+}
+
+
+
+const addRecipe = async (req,res) => {
+    console.log("ADD RECIPE CONTROLLER")
+    const updatedUser = req.body;
+    const userId = updatedUser['_id'];
+    console.log(updatedUser)
+    console.log(userId)
+    const out = updateDaoUser(userId,updatedUser);
+    console.log(out);
+    res.send(200);
 }
 
 const updateUser = async (req, res) => {
@@ -32,8 +47,14 @@ const updateUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     const newUser = req.body;
-    console.log("Server: ",req.body);
-    const responseUser = userModel.create(newUser);
+    let responseUser;
+    console.log(newUser);
+    if(newUser.userType===undefined || newUser.userType==='user') {
+      responseUser = userModel.create(newUser);
+    }
+    else {
+      responseUser = nutritionistModel.create(newUser);
+    }
 
     res.send(responseUser);
    }
@@ -55,11 +76,11 @@ const loginUser = async (req, res) => {
 }
    
 
-const findUserById = (req, res) => {
-    const userId = req.params.uid;
-    const user = users.find(u => u._id === userId);
-    res.json(user);
-   }   
+// const findUserById = (req, res) => {
+//     const userId = req.params.uid;
+//     const user = users.find(u => u._id === userId);
+//     res.json(user);
+//    }   
 
 const findAllUsers = (req,res) => {
     const type = req.query.type;
@@ -70,9 +91,9 @@ const findAllUsers = (req,res) => {
     res.json(users)
 }
 
-const findUsersByType = (type) => {
+// const findUsersByType = (type) => {
     
-    return users.filter(user => type===user.type)
-}
+//     return users.filter(user => type===user.type)
+// }
 
 export default userController;

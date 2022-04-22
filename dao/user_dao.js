@@ -6,8 +6,6 @@ export const createUser = (user) => {
     userModel.create(user);
 }
 
-
-
 export const deleteUser = (uid) => {
     userModel.deleteOne(uid)
 }
