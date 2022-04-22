@@ -5,6 +5,7 @@ import MongoDBSession from 'connect-mongodb-session';
 import mongoose from 'mongoose';
 
 import userController from './controller/user-controller.js';
+import mealController from './controller/meal-controller.js';
 
 const mongoDBSession = MongoDBSession(session);
 
@@ -33,6 +34,7 @@ app.use(session({
 }))
 
 userController(app);
+mealController(app);
 
 app.get('/', (req, res) => {
     req.session.isAuth = true;
