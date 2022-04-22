@@ -6,7 +6,7 @@ import nutritionistModel from '../models/nutritionist_model.js';
 const SECRET_KEY = 'FOOD';
 const userController = (app) => {
     app.get('/api/users', findAllUsers);
-    app.get('/api/users/:uid', findUserById);
+    // app.get('/api/users/:uid', findUserById);
     app.post('/api/users/createUser', createUser);
     app.post('/api/users/loginUser', loginUser);
     app.put('/api/users/:uid', updateUser);
@@ -76,11 +76,11 @@ const loginUser = async (req, res) => {
 }
    
 
-const findUserById = (req, res) => {
-    const userId = req.params.uid;
-    const user = users.find(u => u._id === userId);
-    res.json(user);
-   }   
+// const findUserById = (req, res) => {
+//     const userId = req.params.uid;
+//     const user = users.find(u => u._id === userId);
+//     res.json(user);
+//    }   
 
 const findAllUsers = (req,res) => {
     const type = req.query.type;
@@ -91,9 +91,9 @@ const findAllUsers = (req,res) => {
     res.json(users)
 }
 
-const findUsersByType = (type) => {
+// const findUsersByType = (type) => {
     
-    return users.filter(user => type===user.type)
-}
+//     return users.filter(user => type===user.type)
+// }
 
 export default userController;
