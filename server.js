@@ -21,6 +21,7 @@ const store = new mongoDBSession({
     collection: "mySessions",
 })
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -39,5 +40,7 @@ app.get('/', (req, res) => {
     req.session.isAuth = true;
     res.send("Server is running OK.")
 });
+// Add controller here
+userController(app)
 
 app.listen(4000);

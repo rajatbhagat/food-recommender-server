@@ -1,9 +1,16 @@
 import userModel from "../models/user_model.js";
 import mongoose from 'mongoose';
 
+export const getAllUsersDao = async () => {
+    return userModel.find();
+}
 
-export const createUser = (user) => {
-    userModel.create(user);
+export const getUserByIdDao = (uid) => {
+    return userModel.findOne(uid);
+}
+
+export const getUserByEmailDao = (email) => {
+    return userModel.find({email: email});
 }
 
 export const deleteUser = (uid) => {
@@ -11,22 +18,24 @@ export const deleteUser = (uid) => {
 }
 
 export const updateDaoUser = async (userId,user) => {
-    console.log("Dao Started")
-    console.log(user)
-    console.log(typeof userId)
-    // const out = userModel.updateOne({_id: ObjectID(userId)}, {$set: user})
-    console.log(mongoose.Types.ObjectId(userId))
-    console.log(typeof mongoose.Types.ObjectId(userId))
-    const one = mongoose.Types.ObjectId(userId)
-    user._id = userId
-    const out = await userModel.findOneAndUpdate({_id: userId}, {$set: user});
-    // console.log(out);
+    const out = await userModel.updateOne({_id: userId}, {$set: user});
+    return out;
 }
 
-export const createUserDetails = (user, userDetails) => {
-    userDetailsModel.create(userDetails);
+export const getUserByNameDao = (name) => {
+    //TODO: Update this
+    return userModel.find(none);
 }
 
+export const createUserDao = (user) => {
+    return userModel.create(user);
+}
+export const deleteUserDao = (uid) => {
+    userModel.deleteOne(uid)
+}
+export const updateUserDao = (user, uid) => {
+    userModel.updateOne({_id: uid}, {$set: user})
+}
 
 export const getUserDetails = (uid) => {
     userDetailsModel.find(uid);
