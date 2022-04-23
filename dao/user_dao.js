@@ -18,8 +18,7 @@ export const deleteUser = (uid) => {
 }
 
 export const updateDaoUser = async (userId,user) => {
-    const out = await userModel.findOneAndUpdate({_id: userId}, {$set: user});
-    console.log(out);
+    const out = await userModel.updateOne({_id: userId}, {$set: user});
     return out;
 }
 

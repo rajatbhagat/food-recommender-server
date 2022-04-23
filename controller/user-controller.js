@@ -31,8 +31,11 @@ const updateUser = async (req, res) => {
     const userId = req.params['uid'];
     const updatedUser = req.body;
     const out = await updateDaoUser(userId,updatedUser);
-    console.log(out);
-    res.send(out);
+    if (out) {
+        res.send(out);
+    } else {
+        res.sendStatus(404);
+    }
   }
    
 
