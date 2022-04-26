@@ -1,11 +1,10 @@
 import userModel from '../models/user_model.js';
 import { updateDaoUser } from '../dao/user_dao.js';
-import bcrypt from 'bcryptjs';
-import CryptoJS from 'crypto-js';
 import nutritionistModel from '../models/nutritionist_model.js';
-const SECRET_KEY = 'FOOD';
+
 const userController = (app) => {
     app.get('/api/users', findAllUsers);
+    app.get("/api/users/name/:name", searchUsersByName);
     // app.get('/api/users/:uid', findUserById);
     app.post('/api/users/createUser', createUser);
     app.post('/api/users/loginUser', loginUser);
@@ -13,6 +12,15 @@ const userController = (app) => {
     app.post('/api/users/addRecipe',addRecipe);
 }
 
+const searchUsersByName = async(req, res) => {
+    const name = req.params.name;
+    console.log("SEARCHING FOR " + name);
+    const re = new RegExp(".*" + name + ".*"); 
+    console.log(re)
+    const out = await userModel.find({ name: re });
+    console.log(out);
+    res.send(out);
+}
 
 
 const addRecipe = async (req,res) => {
