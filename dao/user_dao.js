@@ -30,6 +30,7 @@ export const getUserByNameDao = (name) => {
 export const createUserDao = (user) => {
     return userModel.create(user);
 }
+
 export const deleteUserDao = (uid) => {
     userModel.deleteOne(uid)
 }

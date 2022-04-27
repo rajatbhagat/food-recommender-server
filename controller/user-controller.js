@@ -28,18 +28,14 @@ const searchUsersByName = async(req, res) => {
 
 
 const addRecipe = async (req,res) => {
-    console.log("ADD RECIPE CONTROLLER")
+    
     const updatedUser = req.body;
     const userId = updatedUser['_id'];
-    console.log(updatedUser)
-    console.log(userId)
     const out = updateDaoUser(userId,updatedUser);
-    console.log(out);
     res.send(200);
 }
 
 const updateUser = async (req, res) => {
-    console.log("Starting update user")
     const userId = req.params['uid'];
     const updatedUser = req.body;
     const out = await updateDaoUser(userId,updatedUser);
@@ -61,7 +57,7 @@ const updateUser = async (req, res) => {
 const createUser = async (req, res) => {
     const newUser = req.body;
     let responseUser;
-    console.log(newUser);
+    
     if(newUser.userType===undefined || newUser.userType==='user') {
       responseUser = userModel.create(newUser);
     }
