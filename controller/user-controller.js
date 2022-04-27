@@ -3,7 +3,7 @@ import { updateDaoUser } from '../dao/user_dao.js';
 import nutritionistModel from '../models/nutritionist_model.js';
 
 const userController = (app) => {
-    app.get('/api/users', findAllUsers);
+    app.get('/api/', findAllUsers);
     app.get("/api/users/name/:name", searchUsersByName);
     app.get('/api/users/:uid', findUserById);
     app.get("/api/nutritionist/", findApprovedNutrionists);
