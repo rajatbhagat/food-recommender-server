@@ -7,6 +7,7 @@ const mealController = (app) => {
     app.get('/api/meals/:nutritionist', findMealByNutritionist);
     app.get('/api/mealData/:id', findMealByID);
     app.get('/api/allmeals/', findAllMeals);
+    
 
 }
 
