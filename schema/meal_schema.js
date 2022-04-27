@@ -1,12 +1,17 @@
 import mongoose from 'mongoose';
 
 const mealSchema = mongoose.Schema({
-   userid: {
+   name: {
       type: String,
    },
    recipe: {
-      type: Array,
+      type: String,
    },
+   nutritionist: {
+      type:String,
+   }, nutritionist_name:{
+      type:String,
+   }
 }, {collection: 'meal'});
 
 export default mealSchema;
