@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 import userController from './controller/user-controller.js';
 import mealController from './controller/meal-controller.js';
+import adminController from './controller/admin-controller.js';
 
 const mongoDBSession = MongoDBSession(session);
 
@@ -35,6 +36,7 @@ app.use(session({
 
 userController(app);
 mealController(app);
+adminController(app);
 
 app.get('/', (req, res) => {
     req.session.isAuth = true;
