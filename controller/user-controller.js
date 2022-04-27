@@ -6,6 +6,10 @@ const userController = (app) => {
     app.get('/api/', findAllUsers);
     app.get("/api/users/name/:name", searchUsersByName);
     app.get('/api/users/:uid', findUserById);
+    app.get("/api/nutritionist/", findApprovedNutrionists);
+    app.get('/api/nutritionist/reqeusts', nutriotionistRequestsPending);
+    app.put("/api/nutritionist/reqeusts/approve/:uid", nutritionistRequestApprove);
+    app.delete("/api/nutritionist/reqeusts/decline/:uid", nutriotionistRequestDeny);
     app.post('/api/users/createUser', createUser);
     app.post('/api/users/loginUser', loginUser);
     app.put('/api/users/:uid', updateUser);
@@ -103,6 +107,30 @@ const findAllUsers = (req,res) => {
    return;
  }
     res.json(users)
+};
+
+const nutriotionistRequestsPending = async (req, res) => {
+    const requestsToApprove = await nutritionistModel.find({access: false});
+    console.log(requestsToApprove);
+    res.send(requestsToApprove);
+}
+
+const nutritionistRequestApprove = async (req, res) => {
+    const idToApprove = req.params['uid'];
+    const response = await nutritionistModel.updateOne({_id: idToApprove}, {$set:{access: true}})
+    res.send(response);
+}
+
+const nutriotionistRequestDeny = async (req, res) => {
+  const idToApprove = req.params["uid"];
+  const response = await nutritionistModel.remove({ _id: idToApprove },);
+  res.send(response);
+};
+
+const findApprovedNutrionists = async (req, res) => {
+    const approvedList = await nutritionistModel.find({ access: true });
+    console.log(approvedList);
+    res.send(approvedList);
 }
 
 // const findUsersByType = (type) => {
