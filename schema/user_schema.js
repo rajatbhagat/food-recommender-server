@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
    recipe: {
       type: Array,
    },
+   meals: {
+      type: Array,
+   },
    role: {
       type: String,
       default: 'user'
