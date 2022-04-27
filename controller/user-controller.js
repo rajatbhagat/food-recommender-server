@@ -5,7 +5,7 @@ import nutritionistModel from '../models/nutritionist_model.js';
 const userController = (app) => {
     app.get('/api/users', findAllUsers);
     app.get("/api/users/name/:name", searchUsersByName);
-    // app.get('/api/users/:uid', findUserById);
+    app.get('/api/users/:uid', findUserById);
     app.post('/api/users/createUser', createUser);
     app.post('/api/users/loginUser', loginUser);
     app.put('/api/users/:uid', updateUser);
@@ -15,9 +15,9 @@ const userController = (app) => {
 const searchUsersByName = async(req, res) => {
     const name = req.params.name;
     console.log("SEARCHING FOR " + name);
-    const re = new RegExp(".*" + name + ".*"); 
+    const re = new RegExp("^.*" + name + ".*$"); 
     console.log(re)
-    const out = await userModel.find({ name: re });
+    const out = await userModel.find({name:{'$regex' : re, '$options' : 'i'}});
     console.log(out);
     res.send(out);
 }
@@ -84,12 +84,11 @@ const loginUser = async (req, res) => {
   }
 }
    
-
-// const findUserById = (req, res) => {
-//     const userId = req.params.uid;
-//     const user = users.find(u => u._id === userId);
-//     res.json(user);
-//    }   
+const findUserById = async (req, res) => {
+  const uid = req.params['uid']
+  const response = await userModel.find({ _id: uid });
+  res.send(response)
+}
 
 const findAllUsers = (req,res) => {
     const type = req.query.type;
