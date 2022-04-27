@@ -5,7 +5,7 @@ const mealSchema = mongoose.Schema({
       type: String,
    },
    recipe: {
-      type: String,
+      type: Array,
    },
    nutritionist: {
       type:String,
