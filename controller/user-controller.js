@@ -64,15 +64,25 @@ const loginUser = async (req, res) => {
   const loggedInUser = req.body;
   // const hashedPwd = await CryptoJS.AES.encrypt(loggedInUser.password, SECRET_KEY);
   // console.log("Pwd", hashedPwd)
+  if(loggedInUser.userType==="nutritionist") {
+    const dbNutritionist = await nutritionistModel.find({email: loggedInUser.email});
+    if (dbNutritionist.length!=0 && dbNutritionist[0].password === loggedInUser.password) {
+      return res.send(dbNutritionist[0]);
+    } else {
+      return res.send("fail");
+    }
+  }
+
   const dbDetails = await userModel.find({email: loggedInUser.email});
   // let bytes  = CryptoJS.AES.decrypt(dbDetails.password, SECRET_KEY);
   // let decryptedPwd = bytes.toString(CryptoJS.enc.Utf8);
-  console.log(dbDetails[0].password)
-  console.log(loggedInUser.password)
-  if (dbDetails && dbDetails[0].password === loggedInUser.password) {
+  //console.log(dbDetails[0].password)
+  //console.log(loggedInUser.password)
+  console.log(dbDetails);
+  if (dbDetails.length!=0 && dbDetails[0].password === loggedInUser.password) {
     return res.send(dbDetails[0]);
   } else {
-    return res.send("User Not Found");
+    return res.send("fail");
   }
 }
    

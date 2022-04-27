@@ -17,6 +17,10 @@ const nutritionistSchema = mongoose.Schema({
    role: {
       type: String,
       default: 'nutritionist'
+   },
+   access: {
+      type: Boolean,
+      default: false
    }
 }, {collection: 'nutritionist'});
 
