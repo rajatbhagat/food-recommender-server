@@ -1,8 +1,20 @@
 import ingredientModel from "../models/ingredient_model.js";
+import mongoose from "mongoose";
 
 const ingredientController = (app) => {
     app.post('/api/ingredient/addingredient', addIngredient)
+    app.get('/api/ingredientData/:id', findIngredientByID);
+
 }
+
+
+const findIngredientByID = async (req, res) => {
+
+    let id = req.params['id']
+    const response = await ingredientModel.find({ ingredientId: id });
+    res.send(response)
+}
+
 
 const addIngredient = async (req,res) => {
     console.log("Ingredient Controller");
