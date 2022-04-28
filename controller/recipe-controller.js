@@ -2,6 +2,14 @@ import recipeModel from "../models/recipe_model.js";
 
 const recipeController = (app) => {
     app.post('/api/recipe/addrecipe', addRecipe)
+    app.get('/api/recipeserver/:id', findRecipeByID);
+
+}
+
+const findRecipeByID = async (req, res) => {
+    const id = req.params['id']
+    const response = await recipeModel.find({ recipeId: id });
+    res.send(response)
 }
 
 const addRecipe = async (req,res) => {
