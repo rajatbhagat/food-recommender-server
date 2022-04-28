@@ -30,31 +30,4 @@ const addRecipe = async (req,res) => {
     res.send(200)
 }
 
-
-const createRecipe = async (req, res) => {
-    
-    
-    
-    if(newUser.userType===undefined || newUser.userType==='user') {
-      responseUser = userModel.create(newUser);
-    }
-    else {
-      responseUser = nutritionistModel.create(newUser);
-    }
-
-    res.send(responseUser);
-   }
-
-   const updateRecipe = async (req, res) => {
-    console.log("Starting update user")
-    const userId = req.params['uid'];
-    const updatedUser = req.body;
-    const out = await updateDaoUser(userId,updatedUser);
-    if (out) {
-        res.send(out);
-    } else {
-        res.sendStatus(404);
-    }
-  }
-
 export default recipeController;

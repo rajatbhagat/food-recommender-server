@@ -15,6 +15,7 @@ const userController = (app) => {
     app.put('/api/users/:uid', updateUser);
     app.post('/api/users/addRecipe',addRecipe);
     app.post('/api/users/addUserMeal',addUserMeal)
+    app.post('/api/users/adduseringredients',addUserIngredient)
 }
 
 const searchUsersByName = async(req, res) => {
@@ -37,6 +38,13 @@ const addRecipe = async (req,res) => {
 }
 
 const addUserMeal = async (req,res) => {
+    const updatedUser = req.body;
+    const userId = updatedUser['_id'];
+    const out = updateDaoUser(userId,updatedUser);
+    res.send(200);
+}
+
+const addUserIngredient = async (req,res) => {
     const updatedUser = req.body;
     const userId = updatedUser['_id'];
     const out = updateDaoUser(userId,updatedUser);
