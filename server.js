@@ -8,6 +8,7 @@ import userController from './controller/user-controller.js';
 import mealController from './controller/meal-controller.js';
 import adminController from './controller/admin-controller.js';
 import recipeController from './controller/recipe-controller.js';
+import ingredientController from './controller/ingredient-controller.js';
 
 const mongoDBSession = MongoDBSession(session);
 
@@ -39,6 +40,7 @@ userController(app);
 mealController(app);
 adminController(app);
 recipeController(app);
+ingredientController(app);
 
 app.get('/', (req, res) => {
     req.session.isAuth = true;
