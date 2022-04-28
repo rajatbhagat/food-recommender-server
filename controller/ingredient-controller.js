@@ -15,7 +15,7 @@ const addIngredient = async (req,res) => {
     }
     else {
       console.log("dbIncred 0 "+dbIncred[0]);
-      dbIncred[0]["likedByName"].push(newIngredient.likedByName);
+      dbIncred[0]["likedBy"].push(newIngredient.likedBy);
       await ingredientModel.updateOne({ingredientId: dbIncred[0]["ingredientId"]}, {$set: dbIncred[0]});
     }
 

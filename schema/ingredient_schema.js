@@ -8,7 +8,7 @@ const ingredientSchema = mongoose.Schema({
    ingredientName: {
     type: String,
     }, 
-    likedByName: {
+    likedBy: {
        type: Array
    }
 }, {collection: 'ingredient'});
