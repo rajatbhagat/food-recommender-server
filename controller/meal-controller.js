@@ -1,5 +1,6 @@
 import mealModel from '../models/meal_model.js';
 import { createMeal } from '../dao/meal_dao.js';
+import mongoose from "mongoose";
 import {response} from "express";
 
 const mealController = (app) => {
@@ -7,7 +8,6 @@ const mealController = (app) => {
     app.get('/api/meals/:nutritionist', findMealByNutritionist);
     app.get('/api/mealData/:id', findMealByID);
     app.get('/api/allmeals/', findAllMeals);
-
 }
 
 const addMeal = async (req,res) => {
@@ -28,7 +28,10 @@ const findMealByNutritionist = async (req, res) => {
 }
 
 const findMealByID = async (req, res) => {
-    const id = req.params['id']
+    let id = req.params['id']
+
+    id = mongoose.Types.ObjectId(id);
+
     const response = await mealModel.find({ _id: id });
     res.send(response)
 }

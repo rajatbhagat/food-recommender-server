@@ -8,7 +8,7 @@ const recipeSchema = mongoose.Schema({
    recipeName: {
     type: String,
     }, 
-   likedByName: {
+   likedBy: {
        type: Array
    }
 }, {collection: 'recipe'});
