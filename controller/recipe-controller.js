@@ -23,7 +23,7 @@ const addRecipe = async (req,res) => {
     }
     else {
       console.log("DBRecipe 0 "+dbRecipe[0]);
-      dbRecipe[0]["likedByName"].push(newRecipe.likedByName);
+      dbRecipe[0]["likedBy"].push(newRecipe.likedBy);
       await recipeModel.updateOne({recipeId: dbRecipe[0]["recipeId"]}, {$set: dbRecipe[0]});
     }
 
