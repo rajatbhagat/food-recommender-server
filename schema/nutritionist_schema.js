@@ -21,6 +21,10 @@ const nutritionistSchema = mongoose.Schema({
    access: {
       type: Boolean,
       default: false
+   },
+   approvedBy: {
+      type: String,
+      default: ""
    }
 }, {collection: 'nutritionist'});
 

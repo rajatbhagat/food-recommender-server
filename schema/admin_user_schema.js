@@ -19,6 +19,10 @@ const adminUserSchema = mongoose.Schema(
       type: String,
       default: "admin",
     },
+    approvedNutritionist: {
+      type: Array,
+      default: []
+    },
   },
   { collection: "admin" }
 );
