@@ -9,14 +9,19 @@ const ingredientController = (app) => {
 
 
 const findIngredientByID = async (req, res) => {
-
+  try {
     let id = req.params['id']
     const response = await ingredientModel.find({ ingredientId: id });
     res.send(response)
+  } catch (err) {
+    console.log("error while finding ingredient by id", req.params);
+    console.log(err)
+  }
 }
 
 
 const addIngredient = async (req,res) => {
+  try {
     console.log("Ingredient Controller");
     const newIngredient = req.body; 
     console.log("New Ingredient",newIngredient)
@@ -32,6 +37,10 @@ const addIngredient = async (req,res) => {
     }
 
     res.send(200)
+  } catch (err) {
+    console.log("error while adding ingredient")
+    console.log(err)
+  }
 }
 
 export default ingredientController;
