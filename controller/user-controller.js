@@ -18,6 +18,7 @@ const userController = (app) => {
 	app.post('/api/users/addRecipe',addRecipe);
 	app.post('/api/users/addUserMeal',addUserMeal)
     app.post('/api/users/adduseringredients',addUserIngredient)
+    app.delete('/api/users/')
 }
 
 const searchUsersByName = async(req, res) => {

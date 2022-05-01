@@ -4,9 +4,27 @@ import mongoose from "mongoose";
 const ingredientController = (app) => {
     app.post('/api/ingredient/addingredient', addIngredient)
     app.get('/api/ingredientData/:id', findIngredientByID);
+    app.put('/api/ingredient/deleteuseringredient',deleteUserfromIngredient)
 
 }
 
+const deleteUserfromIngredient = async (req, res) => {
+    console.log("DEleting ingredient")
+    const data = req.body;
+    const id = data.ingredient;
+    const user = data.user;
+    const us = {}
+    us.userId = user._id;
+    us.name = user.name;
+    console.log("User")
+    console.log(us);
+    const ingredRecipe = await ingredientModel.find({ingredientId:id});
+    console.log("Found ingredientModel:" ,ingredRecipe[0]);
+    ingredRecipe[0]["likedBy"] = ingredRecipe[0]["likedBy"].filter(item => item.userId!=us.userId);
+    console.log("Updating ingredientModel ",ingredRecipe[0]);
+    await ingredientModel.updateOne({ingredientId: ingredRecipe[0]["ingredientId"]}, {$set: ingredRecipe[0]});
+    res.send(200)
+  }
 
 const findIngredientByID = async (req, res) => {
 
