@@ -88,8 +88,6 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
 	const loggedInUser = req.body;
-	// const hashedPwd = await CryptoJS.AES.encrypt(loggedInUser.password, SECRET_KEY);
-	// console.log("Pwd", hashedPwd)
 	if(loggedInUser.userType==="nutritionist") {
 		const dbNutritionist = await nutritionistModel.find({email: loggedInUser.email});
 		if (dbNutritionist.length!=0 && dbNutritionist[0].password === loggedInUser.password) {
@@ -100,12 +98,10 @@ const loginUser = async (req, res) => {
 	}
 
 	const dbDetails = await userModel.find({email: loggedInUser.email});
-	// let bytes  = CryptoJS.AES.decrypt(dbDetails.password, SECRET_KEY);
-	// let decryptedPwd = bytes.toString(CryptoJS.enc.Utf8);
-	//console.log(dbDetails[0].password)
-	//console.log(loggedInUser.password)
 	console.log(dbDetails);
 	if (dbDetails.length!=0 && dbDetails[0].password === loggedInUser.password) {
+		const userDetails = dbDetails[0];
+		userDetails.password = null;
 		return res.send(dbDetails[0]);
 	} else {
 		return res.send("fail");
