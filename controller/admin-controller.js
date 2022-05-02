@@ -7,6 +7,7 @@ const adminController = (app) => {
 
 
 const loginAdmin = async (req, res) => {
+  try {
   const loggedInUser = req.body;
   console.log("")
   const dbDetails = await adminModel.find({ email: loggedInUser.email });
@@ -17,6 +18,10 @@ const loginAdmin = async (req, res) => {
   } else {
     return res.send("fail");
   }
+} catch (err) {
+  console.log("error while logging in as admin", req.body)
+  console.log(err)
+}
 };
 
 export default adminController;
