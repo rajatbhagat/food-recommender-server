@@ -11,6 +11,9 @@ const mealSchema = mongoose.Schema({
       type:String,
    }, nutritionist_name:{
       type:String,
+   },
+   dateAdded: {
+      type: Date,
    }
 }, {collection: 'meal'});
 

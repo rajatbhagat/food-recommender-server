@@ -8,12 +8,16 @@ const mealController = (app) => {
     app.get('/api/meals/:nutritionist', findMealByNutritionist);
     app.get('/api/mealData/:id', findMealByID);
     app.get('/api/allmeals/', findAllMeals);
+    app.get('/api/recentmeals/', findRecentMeals);
+
 }
 
 const addMeal = async (req,res) => {
     try {
     console.log("ADD Meal CONTROLLER")
     let meal = req.body;
+
+    meal.dateAdded = new Date();
 
     console.log("Here:")
     console.log(meal)
@@ -60,6 +64,20 @@ const findAllMeals = async (req,res) => {
         console.log(err)
     }
 
+}
+
+const findRecentMeals = async (req, res) => {
+
+    try{
+        const response = await mealModel.find().sort({dateAdded: -1}).limit(4);
+        res.send(response)
+    } 
+    catch(err) {
+        console.log("error while finding all meals")
+        console.log(err)
+    }
+
+    
 }
 
 export default mealController;
