@@ -12,7 +12,8 @@ import ingredientController from './controller/ingredient-controller.js';
 
 const mongoDBSession = MongoDBSession(session);
 
-const mongoURI = 'mongodb+srv://food:food@cluster0.vprdu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongoURI =
+  "mongodb+srv://food:food@cluster0.ajlp3a8.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI)
 .then((res) => {
