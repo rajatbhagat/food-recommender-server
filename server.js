@@ -50,4 +50,4 @@ app.get('/', (req, res) => {
 // Add controller here
 userController(app)
 
-app.listen(4000);
+app.listen(10000);
