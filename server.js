@@ -47,6 +47,18 @@ app.get('/', (req, res) => {
     req.session.isAuth = true;
     res.send("Server is running OK.")
 });
+
+app.get("/test", (req, res) => {
+  req.session.isAuth = true;
+  res.send("This is the new end point");
+});
+
+app.post("/message", (req, res) => {
+  req.session.isAuth = true;
+  res.send(req.body.message);
+});
+
+
 // Add controller here
 userController(app)
 
